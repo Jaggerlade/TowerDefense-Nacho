@@ -6,8 +6,8 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 70f;
     private Transform target;
-
-
+    public GameObject impactEffect;
+   
 
 
     public void Seek(Transform _target)
@@ -29,6 +29,7 @@ public class Bullet : MonoBehaviour
         }
         Vector3 dir = target.position - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
+        
         if (dir.magnitude <= distanceThisFrame)
         {
             HitTarget();
@@ -40,6 +41,10 @@ public class Bullet : MonoBehaviour
 
     void HitTarget()
     {
-        Debug.Log("We hit something!");
+        GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(effectIns, 2f);
+        Destroy(target.gameObject);
+        Destroy(gameObject);
     }
+    
 }
