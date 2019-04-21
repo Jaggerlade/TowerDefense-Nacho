@@ -17,13 +17,13 @@ public class Shop : MonoBehaviour
     }
     public void PurchaseStadardTurret()
     {
-        print("Purchased stardard");
+        print("Selected stardard");
         buildManager.SetTurretToBuild(buildManager.standardTurretPrefab);
 
     }
-    public void PurchaseAnotherTurret()
+    public void PurchaseMissileLauncher()
     {
-        print("Purchased Another");
-        buildManager.SetTurretToBuild(buildManager.anotherTurretPrefab);
+        print("Selected MissileLauncher");
+        buildManager.SetTurretToBuild(buildManager.missileLauncherPrefab);
     }
 }
