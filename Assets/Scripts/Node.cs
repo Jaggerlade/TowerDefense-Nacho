@@ -6,10 +6,15 @@ using UnityEngine.EventSystems;
 public class Node : MonoBehaviour
 {
     public Color hoverColor;
+    public Color NotEnoughMoneyColour;
+    public Vector3 positionOffSet;
+
+    [Header("Optional")]
+    public GameObject turret;
+
     private Renderer rend;
     private Color startColor;
-    private GameObject turret;
-    public Vector3 positionOffSet;
+
     BuildManager buildManager;
    
     void Start()
@@ -30,12 +35,12 @@ public class Node : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-        if (buildManager.GetTurretToBuild() == null)
+        if (buildManager.CanBuild)
         {
             return;
         }
         rend.material.color = hoverColor;
-        
+
     }
 
     void OnMouseExit()
@@ -47,16 +52,19 @@ public class Node : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-        if (buildManager.GetTurretToBuild() == null)
+        if (!buildManager.CanBuild)
             return;
         
         if (turret != null)
         {
             print(" We can't build here");
         }
-        GameObject turretToBuild = buildManager.GetTurretToBuild();
-        turret = (GameObject)Instantiate(turretToBuild, transform.position + positionOffSet, transform.rotation);
+        buildManager.BuildTurretOn(this);
 
+    }
+    public Vector3 GetBuildPosition()
+    {
+        return transform.position + positionOffSet;
     }
     
 }

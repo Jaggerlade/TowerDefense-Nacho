@@ -8,8 +8,8 @@ public class WaveSpawner : MonoBehaviour
     public Transform enemyPrefab;
     public Transform spawnPoint;
 
-    public float timeBetweenWaves = 5f;
-    private float countdown = 5f;
+    public float timeBetweenWaves = 20f;
+    private float countdown = 2f;
 
     public Text waveCountDownText;
 
@@ -24,8 +24,9 @@ public class WaveSpawner : MonoBehaviour
              StartCoroutine(SpawnWave());
              countdown = timeBetweenWaves;
          }
-        countdown -= Time.deltaTime;    
-        waveCountDownText.text = Mathf.Floor(countdown).ToString();
+        countdown -= Time.deltaTime;
+        countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
+        waveCountDownText.text = string.Format("{0:00.00}", countdown);
     }
 
     IEnumerator SpawnWave()
